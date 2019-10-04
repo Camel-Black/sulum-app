@@ -1,1 +1,0 @@
-# sulum-app
