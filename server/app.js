@@ -9,13 +9,10 @@ app.set('port',8081);
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
 
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin','http://localhost:8080');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers,X-Access-Token,XKey,Authorization');
-    res.setHeader('Access-Control-Allow-Credentials',true);  
-    next();
-  });
+app.use(cors({
+    origin: 'http://localhost:8080',
+    credentials: true
+}))
 app.use('/api',api)
 
 

@@ -11,6 +11,10 @@ module.exports = function (router){
             error: err
         }))
     })
+    router.post('/test',function(req,res,next){
+        console.log(req.body)
+        res.sendStatus(200)
+    })
     router.post('/user',function(req,res){
         let user = new User(req.body)
         console.log(req.body);

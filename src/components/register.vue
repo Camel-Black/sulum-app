@@ -43,6 +43,7 @@
 <script>
 /* eslint-disable */
 import axios from 'axios'
+import request from 'request'
 export default {
   beforeCreate: function () {
     document.body.className = 'pink'
@@ -74,22 +75,19 @@ export default {
   methods: {
     sender () {
       if (this.pEp) {
-        axios({
-          method:'POST',
-          withCredentials : true, 
-          crossdomain : true,
-          url:"http://localhost:8081/api/user",
-          headers:{
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Cache-Control": "no-cache"
-          },
-          data: this.valeOfdatas
-        })
-          .then(function (res) {
-            console.log(res)
-          }).catch(function (err) {
-            console.log(err)
-          })
+        var options = { method: 'POST',
+  url: 'http://localhost:8081/api/user',
+  headers: 
+   { 'cache-control': 'no-cache',
+     'content-type': 'application/x-www-form-urlencoded' },
+  form: this.valeOfdatas
+        }
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
+
+  console.log(body);
+});
+
       } else {
         this.mainMessage = '  خطا  '
         this.message = 'رمز عبور را تصحیح کنید'
