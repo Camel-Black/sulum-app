@@ -42,7 +42,6 @@
 
 <script>
 /* eslint-disable */
-import axios from 'axios'
 import request from 'request'
 export default {
   beforeCreate: function () {
@@ -54,20 +53,23 @@ export default {
       mobileNumber: '',
       password: '',
       rpassword: '',
-      mainMessage: ' رمز عبور یکسان نیست ',
-      message: 'رمزی که وارد کردید با یکدیگر سنخیت ندارند'
+      mainMessage: 'خطا',
+      message: 'رمز عبور را تصحیح کنید'
     }
   },
   computed: {
     pEp () {
-      if (this.password !== this.rpassword) return false
-      else return true
+      if(this.password !== this.password2){
+        return false
+      }
+      return true
     },
     valeOfdatas () {
       var values = {
-        user_name: `${this.username}`,
-        mobile_number: `${this.mobileNumber}`,
-        password: `${this.password}`
+        userName: `${this.username}`,
+        mobileNumber: `${this.mobileNumber}`,
+        password: `${this.password}`,
+        password2: `${this.rpassword}`
       }
       return values
     }
@@ -76,7 +78,7 @@ export default {
     sender () {
       if (this.pEp) {
         var options = { method: 'POST',
-  url: 'http://localhost:8081/api/user',
+  url: 'http://localhost:8081/api/login',
   headers: 
    { 'cache-control': 'no-cache',
      'content-type': 'application/x-www-form-urlencoded' },
@@ -84,8 +86,6 @@ export default {
         }
 request(options, function (error, response, body) {
   if (error) throw new Error(error);
-
-  console.log(body);
 });
 
       } else {
