@@ -4,6 +4,7 @@ import login from '@/components/loginPage'
 import forget from '@/components/forget'
 import notfound from '@/components/notfound'
 import register from '@/components/register'
+import test from '@/components/test'
 Vue.use(Router)
 /* eslint-disable */
 export default new Router({
@@ -40,6 +41,14 @@ export default new Router({
         title: 'register'
       },
       component: register
+    },
+    {
+      path:'/test',
+      name:'test',
+      meta:{
+        title:'test'
+      },
+      component: test
     }
   ]
 })

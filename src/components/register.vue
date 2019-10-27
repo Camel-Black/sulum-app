@@ -26,7 +26,6 @@
                                     </div>
                                 </div>
                                 <button @click.prevent="sender()" class="btn btn-primary btn-block text-white btn-user" type="submit">Register Account</button>
-                                <hr><a class="btn btn-primary btn-block text-white btn-google btn-user" role="button"><i class="fab fa-google"></i>&nbsp; Register with Google</a><a class="btn btn-primary btn-block text-white btn-facebook btn-user" role="button"><i class="fab fa-facebook-f"></i>&nbsp; Register with Facebook</a>
                                 <hr>
                             </form>
                             <div class="text-center"><a class="small" href="forgot-password.html">Forgot Password?</a></div>
@@ -76,13 +75,18 @@ export default {
   },
   methods: {
     sender () {
+      console.log(this.valeOfdatas.password2)
       if (this.pEp) {
         var options = { method: 'POST',
   url: 'http://localhost:8081/api/login',
   headers: 
    { 'cache-control': 'no-cache',
      'content-type': 'application/x-www-form-urlencoded' },
-  form: this.valeOfdatas
+  form: {
+    userName:this.valeOfdatas.userName ,
+    mobileNumber:this.valeOfdatas.mobileNumber,
+    password: this.valeOfdatas.password
+  }
         }
 request(options, function (error, response, body) {
   if (error) throw new Error(error);

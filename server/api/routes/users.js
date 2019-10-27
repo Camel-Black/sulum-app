@@ -1,5 +1,4 @@
 const User = require('../../model/user')
-const cors = require('cors')
 const bcrypt = require('bcryptjs')
 //clear cors middleware in routes for uploading on the server
 module.exports = function (router){
@@ -9,11 +8,12 @@ module.exports = function (router){
         console.log(req.body)
     })
     router.post('/register',(req,res,next)=>{
+        console.log("log")
         const {userName , mobileNumber , password , password2 } = req.body
         User.findOne({mobileNumber : mobileNumber})
         .then(user =>{
             if(user){
-                res.status(409) //conflict;user exists
+                res.sendStatus(409).end() //conflict;user exists
             } else {
                 var newUser = new User({
                     userName,
@@ -26,17 +26,22 @@ module.exports = function (router){
                         if(err){
                             throw err
                         }
-
                         newUser.password = hash
                         newUser.save()
                         .then(user =>{
-                            res.status(200)
+                            res.sendStatus(200).end()
+                            console.log('user')
                         })
                         .catch(err=> console.log(err))
                     })
                 })
             }
         })
+    })
+    router.post('/test', (req,res)=>{
+        console.log(req.body.message)
+        console.log("-----------")
+        res.sendStatus(200)
     })
 }
 
